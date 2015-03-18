@@ -49,4 +49,29 @@ orderTwo (x:y:ys)
 	| otherwise = y:[x]
 
 --orderThree
-orderThree xs = [2,3,4]
+orderThree (x:y:z:zs)
+	let
+		lone = (orderTwo (x:[y]))
+		ltwo = (orderTwo (y:[z]))
+		lthree = (orderTwo (x:[z]))
+	in
+	| head(lone) == head(ltwo) = x:y:[z] --head(lone):lthree 
+	| otherwise = x:y:[z]
+
+{-
+Guards vs Pattern Matching
+
+Guards- Use when you need to make a choice that doesn't neatly correspond to a pattern
+	  - Usually more readable if you need to access whole structure
+	  - Guards are great for catching exceptions in the invalid input case and with other things.
+	  - like an if/else
+	  - typically start thinking about if a pattern starts getting convoluted or ugly
+
+Patterns- Use for things that can be matched one to two elements deep
+	    - Checking for empty lists
+	    - Great for deconstructing data
+	    - like a case statement
+	    - use for when you don't care about the data as a whole
+	    - use when something can be trivially checked
+	    - patterns are more of a default use
+-}
