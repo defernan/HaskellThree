@@ -48,15 +48,12 @@ orderTwo (x:y:ys)
 	| x < y = x:[y]
 	| otherwise = y:[x]
 
---orderThree
+orderThree :: (Ord a) => [a] -> [a]
 orderThree (x:y:z:zs)
-	let
-		lone = (orderTwo (x:[y]))
-		ltwo = (orderTwo (y:[z]))
-		lthree = (orderTwo (x:[z]))
-	in
-	| head(lone) == head(ltwo) = x:y:[z] --head(lone):lthree 
-	| otherwise = x:y:[z]
+	| x == y = x:y:[z]
+	| head( orderTwo (x:[y]) ) == head( orderTwo (x:[z]) ) = x:(orderTwo (y:[z]) )
+	| head( orderTwo (x:[y]) ) == head( orderTwo (y:[z]) ) = y:(orderTwo (x:[z]) )
+	| head( orderTwo (x:[z]) ) == head( orderTwo (y:[z]) ) = z:(orderTwo (y:[x]) )   
 
 {-
 Guards vs Pattern Matching
